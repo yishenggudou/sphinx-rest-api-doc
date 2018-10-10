@@ -5,12 +5,14 @@ from jinja2 import Template
 
 
 class RestAPIContext(object):
-    
+
     def __init__(self,
-                 _swagger_url,
-                 _method,
-                 _endpoint,
-                 _domain,
+                 title,
+                 desc,
+                 model_path,
+                 method,
+                 domain,
+                 querys,
                  _title,
                  **kwargs):
         self.swagger_api_url = _swagger_url
@@ -26,22 +28,22 @@ class RestAPIContext(object):
             self.load_from_http()
         else:
             self.load_from_path()
-    
+
     @property
     def context(self):
         return self.all_content["paths"][self.endpoint][self.method.lower()]
-    
+
     def load_from_http(self):
         response = urllib.request.urlopen(self.swagger_api_url)
         page = response.read()
         page = page.decode('utf-8')
         self.all_content = json.loads(page)
-    
+
     def load_from_path(self):
         with codecs.open(self.swagger_api_url, 'rb+', 'utf8') as fr:
             page = fr.read()
         self.all_content = json.loads(page)
-    
+
     @property
     def real_path(self):
         """
@@ -54,12 +56,12 @@ class RestAPIContext(object):
             if p['in'] == "path":
                 _ = _.replace("{" + p["name"] + "}", "({type}:{name})".format(**p))
         return _
-    
+
     @property
     def randon_number(self):
         from random import random
         return int(random() * 100)
-    
+
     @property
     def example_path(self):
         """
@@ -76,7 +78,7 @@ class RestAPIContext(object):
                     _ = _.replace("{" + p["name"] + "}", "example_{0}_value".format(p["name"]))
                 else:
                     _ = _.replace("{" + p["name"] + "}", "{0}".format(self.randon_number))
-        
+
         querys = list(filter(lambda x: x['in'] == "query", self.context["parameters"]))
         if len(querys) > 0:
             _ = _ + "?"
@@ -86,7 +88,7 @@ class RestAPIContext(object):
                 else:
                     _ += "{name}={value}&".format(value=p.get("default", "123"), **p)
         return _.lstrip("&")
-    
+
     @property
     def summary(self):
         """
@@ -100,11 +102,11 @@ class RestAPIContext(object):
         else:
             _ = """"""
             return _
-    
+
     def get_type_by_definition_name(self, definition_name):
         definitions = self.all_content["definitions"]
         return definitions[definition_name].get("type", "object")
-    
+
     def get_json_schema(self, definition_name, obj):
         definitions = self.all_content["definitions"]
         _ = definitions[definition_name].get("properties", {})
@@ -122,7 +124,7 @@ class RestAPIContext(object):
                     obj[key] = value["type"]
                 else:
                     obj[key] = self.randon_number
-    
+
     @property
     def reqjsonobj(self):
         _ = list(
@@ -138,7 +140,7 @@ class RestAPIContext(object):
             return json.dumps(sp, indent=4)
         else:
             return ""
-    
+
     @property
     def resjsonobj(self):
         """
@@ -168,11 +170,11 @@ class RestAPIContext(object):
             return json.dumps(sp, indent=4)
         else:
             return ""
-    
+
     @property
     def title_text(self):
         return self.kwargs.get("title_text", '-').strip() * 100
-    
+
     @property
     def example_request(self):
         """
@@ -210,7 +212,7 @@ class RestAPIContext(object):
                                reqjsonobj=self.reqjsonobj,
                                example_path=self.example_path,
                                )
-    
+
     def get_rst_content(self):
         _ = """
 {%if title%}

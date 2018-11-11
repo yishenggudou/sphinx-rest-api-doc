@@ -19,7 +19,7 @@ Add a longer description here.
 INSTALL
 --------------------
 
-.. code-block::bash
+.. code-block:: bash
 
     pip install sphinxcontrib-sphinx-rest-api-doc
 

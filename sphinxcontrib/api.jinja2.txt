@@ -8,7 +8,7 @@
 
    {{http_desc.desc|indent(3)}}
 
-   **{{base.request_example_title}}**:
+   **{{base.rest_api_request_example_title}}**:
 
    .. sourcecode:: http
 
@@ -19,7 +19,7 @@
       {{http_desc.request|indent(6)}}
       {%endif%}
 
-    **{{base.response_example_title}}**:
+    **{{base.rest_api_response_example_title}}**:
 
    .. sourcecode:: http
 

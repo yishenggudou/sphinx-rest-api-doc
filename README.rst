@@ -5,6 +5,10 @@ sphinxcontrib-sphinx-rest-api-doc
 .. image:: https://travis-ci.org/yishenggudou/sphinxcontrib-sphinx-rest-api-doc.svg?branch=master
     :target: https://travis-ci.org/yishenggudou/sphinxcontrib-sphinx-rest-api-doc
 
+.. image:: https://badge.fury.io/py/sphinxcontrib-sphinx-rest-api-doc.svg
+    :target: https://badge.fury.io/py/sphinxcontrib-sphinx-rest-api-doc
+
+
 a tools for sphinx gen doc from json api
 
 Overview
@@ -28,6 +32,7 @@ Basic usage
 
 
 example in model file
+----------------------
 
 
 
@@ -56,3 +61,4 @@ Links
 
 - Source: https://github.com/yishenggudou/sphinxcontrib-sphinx-rest-api-doc
 - Bugs: https://github.com/yishenggudou/sphinxcontrib-sphinx-rest-api-doc/issues
+- BLOG: http://www.timger.com.cn/

@@ -52,10 +52,12 @@ class RestDirective(Directive):
         config = env.config
         result_node = ViewList()
         def_path = os.path.join(config['rest_api_source_root'], self.arguments[0])
+        base = config
+        base.update(self.options)
         o = RestAPIContext(
             config['rest_api_domain'],
             def_path
-            **self.options
+            **base
         )
         rst_context = o.get_rst_content()
         print(rst_context)

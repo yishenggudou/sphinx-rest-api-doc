@@ -36,9 +36,34 @@ example in model file
 
 
 
-.. literalinclude:: model.test.json
+.. code-block:: json
 
-    :language: json
+   {
+  "title": "测试资源",
+  "desc": "测试测试测试",
+  "method": {
+    "get": {
+      "list": false,
+      "path": "/api/xx/xx/xx",
+      "params": {
+        "id":"ddede"
+      },
+      "desc": "dwdwedewfeferferferferfewr",
+      "headers": {
+        "auth":"auth"
+      },
+      "codes": {
+        "400":"de",
+        "200":"2"
+      }
+    }
+  },
+  "model": {
+    "id":"",
+    "desc":"dede"
+  }
+   }
+
 
 
 CONFIG

@@ -41,14 +41,19 @@ class RestAPIContext(object):
                 pass
             if not http_desc.get("codes"):
                 _['context']['method'][http_method]['codes'] = {}
+                _['context']['method'][http_method]['codes'].update(_['base']['global_codes'])
+            if not http_desc.get("headers"):
+                _['context']['method'][http_method]['headers'] = {}
+                _['context']['method'][http_method]['headers'].update(_['base']['global_headers'])
         return _
     
     def get_rst_content(self):
         templateLoader = FileSystemLoader(searchpath=DIRPATH)
         templateEnv = Environment(loader=templateLoader,lstrip_blocks=True,trim_blocks=True)
-        TEMPLATE_FILE = "api.jinja2.txt"
+        TEMPLATE_FILE = "api.jinja2.1.txt"
         template = templateEnv.get_template(TEMPLATE_FILE)
         template.globals.update(clever_function=lambda x: x)
+        print(self.context)
         return template.render(**self.context)
 
 

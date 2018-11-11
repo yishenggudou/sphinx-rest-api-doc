@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+* 调整参数
+* Set theme jekyll-theme-minimal
+* Delete CNAME
+* Create CNAME
+* add pip install
 * 新增样例
 * 调整readme 和文件
 * add

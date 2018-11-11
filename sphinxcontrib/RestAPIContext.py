@@ -38,7 +38,7 @@ class RestAPIContext(object):
             else:
                 _['context']['method'][http_method]['response'] = json.dumps(_["context"]['model'], indent=4)
             if http_method.upper() in ['POST', 'PUT']:
-                pass
+                _['context']['method'][http_method]['request'] = json.dumps(_["context"]['model'],indent=4)
             if not http_desc.get("codes"):
                 _['context']['method'][http_method]['codes'] = {}
                 _['context']['method'][http_method]['codes'].update(_['base']['global_codes'])
@@ -53,7 +53,7 @@ class RestAPIContext(object):
         TEMPLATE_FILE = "api.jinja2.1.txt"
         template = templateEnv.get_template(TEMPLATE_FILE)
         template.globals.update(clever_function=lambda x: x)
-        print(self.context)
+        #print(self.context)
         return template.render(**self.context)
 
 

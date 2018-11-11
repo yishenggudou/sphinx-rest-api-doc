@@ -15,6 +15,7 @@
       {{http_method|upper}} {{ http_desc.path|safe }}  HTTP/1.1
       Host: {{base.http_domain}}
       Accept: application/json, text/javascript
+
       {% if http_method.upper() == 'POST' or  http_method.upper() == 'PUT' %}
       {{http_desc.request|indent(6)}}
       {%endif%}

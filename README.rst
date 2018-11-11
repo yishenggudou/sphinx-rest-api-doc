@@ -22,8 +22,18 @@ INSTALL
 Basic usage
 ----------------------
 
-.. api: path_to_model.json
+.. code-block:: rst
 
+   .. rest: path_to_model.json
+
+
+example in model file
+
+
+
+.. literalinclude:: model.test.json
+
+    :language: json
 
 
 CONFIG
@@ -32,20 +42,14 @@ CONFIG
 
 in config.py
 
-.. code-block::py
+.. code-block:: py
     
-  extensions += ['sphinxcontrib.swagger2', ]
-  swagger_api_url = os.path.join(PROJECT_DIR, "_static", "api-docs.json")
-  swagger_api_domain = "timger.com.cn"
+   extensions += ['sphinxcontrib.sphinxcontrib-sphinx-rest-api-doc',]
+   rest_api_source_root = os.path.join(PROJECT_DIR, "_static", "models")
+   rest_api_domain = "timger.com.cn"
+   rest_api_http_request_example_title = "Request Example"
+   rest_api_http_request_example_title = "Response Example"
 
-in rst file
-
-.. code-block:: rst
-
-    .. swagger:: /v1/api/test/
-        :method: GET
-        :title: test API
-        :summary: sssss
 
 Links
 -----

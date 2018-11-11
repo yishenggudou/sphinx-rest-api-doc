@@ -54,7 +54,7 @@ class RestAPIContext(object):
 
 if __name__ == "__main__":
     o = RestAPIContext("test",
-                       "/Volumes/data/github/sphinx-rest-api-doc/tests/model.test.json",
+                       "/Volumes/data/github/sphinx-rest-api-doc/model.test.json",
                        **{
                            "response_example_title": "response_example_title",
                            "request_example_title": "request_example_title"

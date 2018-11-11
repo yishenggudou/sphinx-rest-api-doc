@@ -74,11 +74,11 @@ in config.py
 
 .. code-block:: py
     
-   extensions += ['sphinxcontrib.sphinxcontrib-sphinx-rest-api-doc',]
+   extensions += ['sphinxcontrib.SphinxRest',]
    rest_api_source_root = os.path.join(PROJECT_DIR, "_static", "models")
    rest_api_domain = "timger.com.cn"
    rest_api_http_request_example_title = "Request Example"
-   rest_api_http_request_example_title = "Response Example"
+   rest_api_http_response_example_title = "Response Example"
 
 
 Links

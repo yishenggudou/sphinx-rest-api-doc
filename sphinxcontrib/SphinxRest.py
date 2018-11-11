@@ -95,5 +95,5 @@ def setup(app):
     app.add_config_value('rest_api_source_root', '.', '.')
     app.add_config_value('rest_api_domain', 'example.com', 'example.com')
     app.add_config_value('rest_api_http_request_example_title', 'example.com', 'example.com')
-    app.add_config_value('rest_api_http_request_example_title', 'example.com', 'example.com')
+    app.add_config_value('rest_api_http_response_example_title', 'example.com', 'example.com')
     return {'parallel_read_safe': True}

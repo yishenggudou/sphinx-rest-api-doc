@@ -33,7 +33,7 @@ class RestAPIContext(object):
             _["context"] = json.loads(fr.read())
         
         for http_method, http_desc in _['context']['method'].items():
-            if _['context']['method'].get("list"):
+            if _['context']['method'][http_method].get("list"):
                 _['context']['method'][http_method]['response'] = json.dumps([_["context"]['model'], ], indent=4)
             else:
                 _['context']['method'][http_method]['response'] = json.dumps(_["context"]['model'], indent=4)
@@ -45,6 +45,8 @@ class RestAPIContext(object):
             if not http_desc.get("headers"):
                 _['context']['method'][http_method]['headers'] = {}
                 _['context']['method'][http_method]['headers'].update(_['base']['global_headers'])
+            if not http_desc.get("params"):
+                _['context']['method'][http_method]['params'] = {}
         return _
     
     def get_rst_content(self):

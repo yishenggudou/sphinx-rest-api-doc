@@ -1,7 +1,11 @@
+{%if context.title%}
 {{ context.title|safe }}
 ------------------------
+{%endif%}
 
+{%if context.desc%}
 {{ context.desc|safe }}
+{%if endif %}
 
 {% for http_method,http_desc in context.method.items() %}
 .. http:{{ http_method |safe }}:: {{ http_desc.path|safe }}

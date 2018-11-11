@@ -6,8 +6,8 @@ from docutils import nodes
 from docutils.parsers.rst import directives, Directive
 from docutils.statemachine import ViewList
 from sphinx.util.nodes import nested_parse_with_titles
-from .RestAPIContext import SwaggerAPIContext
-
+from .RestAPIContext import RestAPIContext
+import os
 try:
     from StringIO import StringIO
 except ImportError:
@@ -19,8 +19,9 @@ class rest(nodes.General, nodes.Element):
 
 
 def html_visit_rest_node(self, node):
-    rest_api_root = self.builder.config.rest_api_root
-    node["path"]
+    pass
+    #rest_api_root = self.builder.config.rest_api_root
+    #node["path"]
     # httpdomain_node = nodes.http(uri=refname, **node.attributes)
     # aspect = node["aspect"]
     # width = node["width"]
@@ -40,7 +41,6 @@ class RestDirective(Directive):
     option_spec = {
         "desc": directives.unchanged,
         "title": directives.unchanged,
-        "path": directives.unchanged,
         "summary": directives.unchanged,
         "method": directives.unchanged,
         "example_path": directives.unchanged,
@@ -50,25 +50,11 @@ class RestDirective(Directive):
         env = self.state.document.settings.env
         warning = self.state.document.reporter.warning
         config = env.config
-        """
-        print(dir(self))
-        print(dir(self.arguments))
-        print(self.arguments)
-        print(dir(self.content))
-        print(self.content)
-        for i in dir(self):
-            if not i.startswith("_"):
-                print("{0}{1}{2}".format('_' * 10, i, '_' * 10))
-                print(getattr(self, i))
-        """
         result_node = ViewList()
-        o = SwaggerAPIContext(
-            config['rest_api_url'],
-            self.options['method'].lower(),
-            self.arguments[0],
-            config["rest_api_domain"],
-            self.options['title'],
-            desc=" ".join(self.content),
+        def_path = os.path.join(config['rest_api_source_root'], self.arguments[0])
+        o = RestAPIContext(
+            config['rest_api_domain'],
+            def_path
             **self.options
         )
         rst_context = o.get_rst_content()
@@ -104,6 +90,8 @@ def setup(app):
     app.setup_extension('sphinxcontrib.httpdomain')
     app.add_node(rest, **_NODE_VISITORS)
     app.add_directive("rest", RestDirective)
-    app.add_config_value('rest_api_root', 'http://127.0.0.1:8080', 'http://127.0.0.1:8080')
+    app.add_config_value('rest_api_source_root', '.', '.')
     app.add_config_value('rest_api_domain', 'example.com', 'example.com')
+    app.add_config_value('http_request_example_title', 'example.com', 'example.com')
+    app.add_config_value('http_request_example_title', 'example.com', 'example.com')
     return {'parallel_read_safe': True}

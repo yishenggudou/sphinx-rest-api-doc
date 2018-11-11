@@ -5,7 +5,7 @@ sphinxcontrib-sphinx-rest-api-doc
 .. image:: https://travis-ci.org/yishenggudou/sphinxcontrib-sphinx-rest-api-doc.svg?branch=master
     :target: https://travis-ci.org/yishenggudou/sphinxcontrib-sphinx-rest-api-doc
 
-a tools for sphinx gen doc from swagger2 api
+a tools for sphinx gen doc from json api
 
 Overview
 --------
@@ -19,8 +19,14 @@ INSTALL
 
     pip install sphinxcontrib-sphinx-rest-api-doc
 
+Basic usage
+----------------------
 
-USAGE
+.. api: path_to_model.json
+
+
+
+CONFIG
 ----------
 
 

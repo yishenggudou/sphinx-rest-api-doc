@@ -51,11 +51,11 @@ class RestAPIContext(object):
     
     def get_rst_content(self):
         templateLoader = FileSystemLoader(searchpath=DIRPATH)
+        method_map = {"detail": "get"}
         templateEnv = Environment(loader=templateLoader, lstrip_blocks=True, trim_blocks=True)
+        templateEnv.filters['method_wrapper'] = lambda x: method_map.get(x, x)
         TEMPLATE_FILE = "api.jinja2.1.txt"
         template = templateEnv.get_template(TEMPLATE_FILE)
-        method_map = {"detail": "get"}
-        template.globals.update(method_wrapper=lambda x: method_map.get(x, x))
         # print(self.context)
         return template.render(**self.context)
 

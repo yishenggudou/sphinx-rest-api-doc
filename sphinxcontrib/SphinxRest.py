@@ -105,7 +105,7 @@ def setup(app):
     app.add_config_value('rest_api_http_request_example_title', 'example.com', 'example.com')
     app.add_config_value('rest_api_http_response_example_title', 'example.com', 'example.com')
     app.add_config_value('global_codes', {}, {})
-
+    app.add_config_value('global_exceptions', {}, {})
     app.add_config_value('global_headers', {}, {})
 
     return {'parallel_read_safe': True}

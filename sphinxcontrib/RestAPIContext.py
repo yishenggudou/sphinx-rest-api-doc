@@ -31,22 +31,31 @@ class RestAPIContext(object):
         import codecs
         with codecs.open(self.model_path, 'rb', 'utf-8') as fr:
             _["context"] = json.loads(fr.read())
-        
-        for http_method, http_desc in _['context']['method'].items():
-            if _['context']['method'][http_method].get("list"):
-                _['context']['method'][http_method]['response'] = json.dumps([_["context"]['model'], ], indent=4)
+        methods = []
+        if type(_['context']['method']) in [dict,]:
+            for http_method, http_desc in _['context']['method'].items():
+                http_desc["method"] = http_method
+                methods.append(http_desc)
+        else:
+            methods = _['context']['method'] or _['context']['endpoints']
+        for http_desc in methods:
+            http_method = http_desc['method']
+            if http_desc.get("list"):
+                http_desc['response'] = json.dumps([_["context"]['model'], ], indent=4)
             else:
-                _['context']['method'][http_method]['response'] = json.dumps(_["context"]['model'], indent=4)
+                http_desc['response'] = json.dumps(_["context"]['model'], indent=4)
             if http_method.upper() in ['POST', 'PUT']:
-                _['context']['method'][http_method]['request'] = json.dumps(_["context"]['model'], indent=4)
+                http_desc['request'] = json.dumps(_["context"]['model'], indent=4)
             if not http_desc.get("codes"):
-                _['context']['method'][http_method]['codes'] = {}
-                _['context']['method'][http_method]['codes'].update(_['base']['global_codes'])
+                http_desc['codes'] = {}
+                http_desc['codes'].update(_['base']['global_codes'])
             if not http_desc.get("headers"):
-                _['context']['method'][http_method]['headers'] = {}
-                _['context']['method'][http_method]['headers'].update(_['base']['global_headers'])
+                http_desc['headers'] = {}
+                http_desc['headers'].update(_['base']['global_headers'])
             if not http_desc.get("params"):
-                _['context']['method'][http_method]['params'] = {}
+                http_desc['params'] = {}
+        _['context']['method'] = methods
+        _['context']['endpoints'] = methods
         return _
     
     def get_rst_content(self):

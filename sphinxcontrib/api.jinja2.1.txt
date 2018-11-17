@@ -7,7 +7,9 @@
 {{ context.desc|safe }}
 {% endif %}
 
-{% for http_method,http_desc in context.method.items() %}
+{% for http_desc in context.endpoints %}
+{% set http_method = http_desc.method %}
+
 .. http:{{ http_method |method_wrapper|safe }}:: {{ http_desc.path|safe }}
 
    {{http_desc.desc|indent(3)}}

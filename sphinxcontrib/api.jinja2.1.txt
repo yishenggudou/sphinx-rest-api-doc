@@ -23,7 +23,7 @@
 
    .. sourcecode:: http
 
-      {{http_method|upper}} {{ http_desc.path|safe }}  HTTP/1.1
+      {{http_method|method_wrapper|upper}} {{ http_desc.path|safe }}  HTTP/1.1
       Host: {{base.http_domain}}
       Accept: application/json, text/javascript
 

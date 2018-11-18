@@ -32,7 +32,8 @@ class RestAPIContext(object):
         with codecs.open(self.model_path, 'rb', 'utf-8') as fr:
             _["context"] = json.loads(fr.read())
         methods = []
-        if type(_['context']['method']) in [dict,]:
+        permissions = _["context"].get("permissions", [])
+        if type(_['context']['method']) in [dict, ]:
             for http_method, http_desc in _['context']['method'].items():
                 http_desc["method"] = http_method
                 methods.append(http_desc)
@@ -54,6 +55,7 @@ class RestAPIContext(object):
                 http_desc['headers'].update(_['base']['global_headers'])
             if not http_desc.get("params"):
                 http_desc['params'] = {}
+            http_desc['permissions'] = http_desc.get("permissions", []) + permissions
         _['context']['method'] = methods
         _['context']['endpoints'] = methods
         return _

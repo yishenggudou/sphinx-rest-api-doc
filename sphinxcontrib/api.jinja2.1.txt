@@ -14,6 +14,11 @@
 
    {{http_desc.desc|indent(3)}}
 
+   {% if http_desc.get('permissions')%}
+   .. note ::
+    This Endpoint need {% for permission in http_desc.get('permissions',[]) %}`{{permission.name or permission}}`,{%endfor%} Permission
+   {%endif%}
+
    **{{base.rest_api_http_request_example_title}}**:
 
    .. sourcecode:: http
